@@ -1,9 +1,10 @@
 FROM php:5.6-fpm
 
-MAINTAINER Johan van Helden <johan@johanvanhelden.com>
+MAINTAINER Jimbo <jimmy@showpo.com>
+# Thanks to Johan van Helden <johan@johanvanhelden.com> for the original - I just added more stuff!!!
 
 # Set environment variables
-ARG TZ=Europe/Amsterdam
+ARG TZ=Australia/Sydney
 ENV TZ ${TZ}
 
 # Install dependencies
@@ -21,7 +22,15 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libxslt1-dev \
     ssmtp \
-    libssh2-1-dev
+    libssh2-1-dev \
+    git \
+    python \
+    python-pip \
+    curl \
+    wget \
+    mysql-client \
+    libyaml-dev \
+    python-dev
 
 RUN docker-php-ext-install -j$(nproc) mcrypt \
     && docker-php-ext-install -j$(nproc) curl \
@@ -67,9 +76,18 @@ COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 COPY ./dockerhero.fpm.conf /usr/local/etc/php-fpm.d/zzz-dockerhero.fpm.conf
 COPY ./dockerhero.php.ini /usr/local/etc/php/conf.d/dockerhero.php.ini
 
-# Setup sSMTP
-RUN cp /etc/ssmtp/ssmtp.conf /etc/ssmtp/ssmtp.conf.bak
-COPY ./ssmtp.conf /etc/ssmtp/ssmtp.conf
+# Download the latest version of magerun
+RUN curl https://files.magerun.net/n98-magerun.phar -o /n98-magerun.phar
+RUN chmod +x /n98-magerun.phar
+RUN mv ./n98-magerun.phar /usr/local/bin/
+
+# Install PHPUnit
+RUN cd /tmp && curl https://phar.phpunit.de/phpunit.phar > phpunit.phar && \
+    chmod +x phpunit.phar && \
+    mv /tmp/phpunit.phar /usr/local/bin/phpunit
+    
+# Install AWS CLI    
+RUN pip install awscli
 
 # Cleanup all downloaded packages
 RUN apt-get -y autoclean && apt-get -y autoremove && apt-get -y clean && rm -rf /var/lib/apt/lists/* && apt-get update
