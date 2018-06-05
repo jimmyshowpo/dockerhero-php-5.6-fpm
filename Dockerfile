@@ -78,7 +78,7 @@ COPY ./dockerhero.php.ini /usr/local/etc/php/conf.d/dockerhero.php.ini
 # Download the latest version of magerun
 RUN curl https://files.magerun.net/n98-magerun.phar -o /n98-magerun.phar
 RUN chmod +x /n98-magerun.phar
-RUN mv ./n98-magerun.phar /usr/local/bin/
+RUN mv /n98-magerun.phar /usr/local/bin/
 
 # Install PHPUnit
 RUN cd /tmp && curl https://phar.phpunit.de/phpunit-5.7.phar > phpunit.phar && \
