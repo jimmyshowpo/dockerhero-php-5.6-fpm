@@ -82,7 +82,7 @@ RUN chmod +x /n98-magerun.phar
 RUN mv ./n98-magerun.phar /usr/local/bin/
 
 # Install PHPUnit
-RUN cd /tmp && curl https://phar.phpunit.de/phpunit.phar > phpunit.phar && \
+RUN cd /tmp && curl https://phar.phpunit.de/phpunit-5.7.phar > phpunit.phar && \
     chmod +x phpunit.phar && \
     mv /tmp/phpunit.phar /usr/local/bin/phpunit
     
