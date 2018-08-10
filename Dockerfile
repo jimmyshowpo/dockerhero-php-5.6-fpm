@@ -88,6 +88,10 @@ RUN cd /tmp && curl https://phar.phpunit.de/phpunit-5.7.phar > phpunit.phar && \
 # Install AWS CLI    
 RUN pip install awscli
 
+# Install Node.js
+RUN curl -sL https://deb.nodesource.com/setup | bash - && \
+  apt-get install -y nodejs
+
 # Cleanup all downloaded packages
 RUN apt-get -y autoclean && apt-get -y autoremove && apt-get -y clean && rm -rf /var/lib/apt/lists/* && apt-get update
 
