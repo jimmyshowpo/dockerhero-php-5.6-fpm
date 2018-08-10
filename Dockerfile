@@ -89,7 +89,7 @@ RUN cd /tmp && curl https://phar.phpunit.de/phpunit-5.7.phar > phpunit.phar && \
 RUN pip install awscli
 
 # Install Node.js
-RUN curl -sL https://deb.nodesource.com/setup | bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
   apt-get install -y nodejs
 
 # Cleanup all downloaded packages
