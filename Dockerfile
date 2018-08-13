@@ -94,7 +94,7 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
   apt-get install -y nodejs
   
 # Install jslint via npm
-RUN npm install -g jslint
+RUN npm install -g jshint
 
 # Cleanup all downloaded packages
 RUN apt-get -y autoclean && apt-get -y autoremove && apt-get -y clean && rm -rf /var/lib/apt/lists/* && apt-get update
