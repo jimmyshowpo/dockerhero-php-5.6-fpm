@@ -86,8 +86,9 @@ RUN cd /tmp && curl https://phar.phpunit.de/phpunit-5.7.phar > phpunit.phar && \
     chmod +x phpunit.phar && \
     mv /tmp/phpunit.phar /usr/local/bin/phpunit
     
-# Install Composer
-RUN curl --silent --show-error https://getcomposer.org/installer | php
+# Install Composer globally
+RUN curl --silent --show-error https://getcomposer.org/installer | php && \
+    mv composer.phar /usr/local/bin/composer
     
 # Install AWS CLI    
 RUN pip install awscli
