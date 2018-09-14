@@ -30,7 +30,7 @@ RUN apt-get update && apt-get install -y \
     mysql-client \
     libyaml-dev \
     python-dev \
-    gnupg |
+    gnupg \
     unzip
 
 RUN docker-php-ext-install -j$(nproc) mcrypt \
